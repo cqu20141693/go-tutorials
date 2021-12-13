@@ -5,7 +5,12 @@ cc:
     dir: log
   cloud:
     nacos:
-      server-addr: 172.30.203.22:8848
+      address:
+        - 172.30.203.22:8848
       file-extension: yml
       config:
         namespaceId: ca1d1ded-cb0b-460c-8efa-7e665c7a34e0
+      extend-configs:
+        - dataId: operation-domain.yml
+          group: DEFAULT_GROUP
+        - dataId: prod.yml

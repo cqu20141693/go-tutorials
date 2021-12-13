@@ -2,4 +2,4 @@ cc:
   application:
     name: go-tutorials
   profiles:
-    active: dev
+    active: native

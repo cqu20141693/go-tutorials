@@ -1,0 +1,8 @@
+cc:
+  application:
+    name: go-tutorials
+  profiles:
+    active: native
+  sip:
+    serial: 34000000001310000000
+    realm: 3420000
