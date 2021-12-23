@@ -9,3 +9,16 @@ cc:
       file-extension: yml
       config:
         namespaceId: ca1d1ded-cb0b-460c-8efa-7e665c7a34e0
+  redis: # redis server
+    # must config
+    database: 0
+    password: chongC@123
+    addr: 172.19.214.114:6379
+    # should config
+    conn-timeout: 5
+    read-timeout: 3
+    pool-timeout: 4
+    idle-timeout: 300
+    retry: 3
+    pool-size: 10 # Default is 10 connections per every available CPU as reported by runtime.GOMAXPROCS.
+    min-idle-conn: 0
