@@ -7,5 +7,5 @@ cc:
     nacos:
       server-addr: 172.30.203.22:8848
       file-extension: yml
-      config:
-        namespaceId: ca1d1ded-cb0b-460c-8efa-7e665c7a34e0
+#      config:
+#        namespaceId: ca1d1ded-cb0b-460c-8efa-7e665c7a34e0
