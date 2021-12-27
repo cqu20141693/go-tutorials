@@ -6,7 +6,6 @@ import (
 	"github.com/cqu20141693/go-service-common/event"
 	"github.com/cqu20141693/go-service-common/logger"
 	"github.com/cqu20141693/go-tutorials/registry/nacos/common"
-	"go-micro.dev/v4/client"
 	"log"
 )
 
@@ -25,7 +24,8 @@ func main() {
 	//log.Printf("err:%v response:%#v\n", err, response)
 	cameraId := "nyXivDbD20211015"
 	endpoint := "/api/device/meta/getByDeviceKey?deviceKey=" + cameraId
-	req := client.NewRequest("device-backend", endpoint, map[string]string{})
+	req := c.NewRequest("device-backend", endpoint, "")
+	//req := client.NewRequest("device-backend", "/api/device/meta/getByDeviceKey", map[string]string{"deviceKey":cameraId})
 	type DeviceInfo struct {
 		GroupKey    string `json:"groupKey"`
 		SN          string `json:"sn"`
@@ -37,7 +37,11 @@ func main() {
 		Message string
 		Data    DeviceInfo
 	}
+	response := new(map[string]interface{})
+	err := c.Call(context.Background(), req, response)
+	log.Printf("err:%v response:%#v\n", err, response)
+
 	resp := result{}
-	err := c.Call(context.Background(), req, &resp)
+	err = c.Call(context.Background(), req, &resp)
 	log.Printf("err:%v response:%#v\n", err, resp)
 }
