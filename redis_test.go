@@ -7,6 +7,7 @@ import (
 	ccredis "github.com/cqu20141693/go-service-common/redis"
 	credis "github.com/cqu20141693/go-tutorials/redis"
 	"github.com/go-redis/redis/v8"
+	"log"
 	"strconv"
 	"testing"
 	"time"
@@ -14,6 +15,7 @@ import (
 
 func init() {
 	fmt.Println("start test")
+	boot.Task()
 }
 
 /**
@@ -26,7 +28,7 @@ cursor 为0表示首次扫描，count 表示一次扫描多少底层数组槽（
 缺点，可能会返回重复的key
 */
 func TestScan(t *testing.T) {
-	boot.Task()
+
 	prefix := "sips:*"
 
 	ctx := context.Background()
@@ -59,5 +61,24 @@ func TestScan(t *testing.T) {
 	if err != nil {
 		panic(err)
 	}
+
+}
+
+func TestHash(t *testing.T) {
+	key := "sip:test"
+	field := "camera1"
+	formatInt := strconv.FormatInt(time.Now().UnixMilli(), 10)
+	hSet := ccredis.RedisDB.HSet(context.Background(), key, field, formatInt)
+	if hSet.Err() != nil {
+		log.Println("hSet err", hSet.Err())
+	}
+	data, err := ccredis.RedisDB.HGet(context.Background(), key, field).Result()
+	if err != nil {
+		log.Println("hGet err", err)
+	}
+	parseInt, _ := strconv.ParseInt(data, 10, 64)
+	duration := time.Duration(parseInt)
+	t1 := time.Now().UnixMilli() - parseInt
+	log.Println("hGet data=", data, duration, t1)
 
 }
