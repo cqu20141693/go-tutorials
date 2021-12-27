@@ -82,3 +82,38 @@ func TestHash(t *testing.T) {
 	log.Println("hGet data=", data, duration, t1)
 
 }
+func TestHashMGet(t *testing.T) {
+	key := "sipc:1234"
+	fields := []string{"callId", "fTag", "tTag"}
+	maps := []string{"callId", "1", "fTag", "wq", "tTag", "cc"}
+	err, done := mGet(key, fields)
+	if done {
+		return
+	}
+	_, err = ccredis.RedisDB.HMSet(context.Background(), key, maps).Result()
+	if err != nil {
+		return
+	}
+	mGet(key, fields)
+
+}
+
+func mGet(key string, fields []string) (error, bool) {
+	result, err := ccredis.RedisDB.HMGet(context.Background(), key, fields...).Result()
+	if err != nil {
+		return nil, true
+	}
+	var callId, fTag, tTag string
+	if result[0] != nil {
+		callId = result[0].(string)
+	}
+	if result[1] != nil {
+		fTag = result[1].(string)
+	}
+	if result[2] != nil {
+		tTag = result[2].(string)
+	}
+
+	fmt.Println(callId, fTag, tTag)
+	return err, false
+}
