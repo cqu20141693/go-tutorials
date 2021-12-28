@@ -4,11 +4,11 @@ cc:
   log:
     dir: log
   cloud:
-    nacos:
-      server-addr: 172.30.203.22:8848
-      file-extension: yml
-      config:
-        namespaceId: ca1d1ded-cb0b-460c-8efa-7e665c7a34e0
+#    nacos:
+#      server-addr: 172.30.203.22:8848
+#      file-extension: yml
+#      config:
+#        namespaceId: ca1d1ded-cb0b-460c-8efa-7e665c7a34e0
   redis: # redis server
     # must config
     database: 0
