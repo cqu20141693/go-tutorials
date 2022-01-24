@@ -1,5 +1,0 @@
-cc:
-  application:
-    name: go-tutorials
-  profiles:
-    active: native
