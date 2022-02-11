@@ -3,14 +3,11 @@ server:
 cc:
   log:
     dir: log
-  cloud:
-    nacos:
-      address:
-        - 172.30.203.22:8848
-      file-extension: yml
-      config:
-        namespaceId: ca1d1ded-cb0b-460c-8efa-7e665c7a34e0
-      extend-configs:
-        - dataId: operation-domain.yml
-          group: DEFAULT_GROUP
-        - dataId: prod.yml
+  datasource:
+    master:
+      username: admin
+      password: chongC@123
+      url: tcp(172.19.214.113:3306)/link?charset=utf8mb4&parseTime=True&loc=Local
+    pool:
+      maxIdleConn: 1
+      maxOpenConn: 5

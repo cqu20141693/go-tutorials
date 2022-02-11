@@ -2,7 +2,7 @@ module github.com/cqu20141693/go-tutorials
 
 go 1.17
 
-require github.com/cqu20141693/go-service-common v0.5.0
+require github.com/cqu20141693/go-service-common/v2 v2.0.0
 
 require (
 	github.com/Microsoft/go-winio v0.5.0 // indirect
@@ -10,15 +10,16 @@ require (
 	github.com/acomagu/bufpipe v1.0.3 // indirect
 	github.com/aliyun/alibaba-cloud-sdk-go v1.61.976 // indirect
 	github.com/asim/go-micro/plugins/client/http/v4 v4.0.0-20211124174154-b25d744f5c51 // indirect
+	github.com/asim/go-micro/plugins/config/encoder/yaml/v4 v4.0.0-20211207093048-a40f6e8fae19 // indirect
+	github.com/asim/go-micro/plugins/config/source/nacos/v4 v4.0.0-20211207093048-a40f6e8fae19 // indirect
 	github.com/asim/go-micro/plugins/registry/nacos/v4 v4.0.0-20211207093048-a40f6e8fae19 // indirect
 	github.com/asim/go-micro/plugins/server/http/v4 v4.0.0-20211124174154-b25d744f5c51 // indirect
 	github.com/bitly/go-simplejson v0.5.0 // indirect
 	github.com/buger/jsonparser v0.0.0-20181115193947-bf1c66bbce23 // indirect
-	github.com/cespare/xxhash/v2 v2.1.2 // indirect
 	github.com/cpuguy83/go-md2man/v2 v2.0.0 // indirect
-	github.com/dgryski/go-rendezvous v0.0.0-20200823014737-9f7001d12a5f // indirect
 	github.com/emirpasic/gods v1.12.0 // indirect
 	github.com/fsnotify/fsnotify v1.5.1 // indirect
+	github.com/ghodss/yaml v1.0.0 // indirect
 	github.com/gin-contrib/sse v0.1.0 // indirect
 	github.com/gin-gonic/gin v1.7.7 // indirect
 	github.com/go-errors/errors v1.0.1 // indirect
@@ -28,12 +29,14 @@ require (
 	github.com/go-playground/locales v0.13.0 // indirect
 	github.com/go-playground/universal-translator v0.17.0 // indirect
 	github.com/go-playground/validator/v10 v10.4.1 // indirect
-	github.com/go-redis/redis/v8 v8.11.4 // indirect
+	github.com/go-sql-driver/mysql v1.6.0 // indirect
 	github.com/golang/protobuf v1.5.2 // indirect
 	github.com/google/uuid v1.2.0 // indirect
 	github.com/hashicorp/hcl v1.0.0 // indirect
 	github.com/imdario/mergo v0.3.12 // indirect
 	github.com/jbenet/go-context v0.0.0-20150711004518-d14ea06fba99 // indirect
+	github.com/jinzhu/inflection v1.0.0 // indirect
+	github.com/jinzhu/now v1.1.3 // indirect
 	github.com/jmespath/go-jmespath v0.4.0 // indirect
 	github.com/json-iterator/go v1.1.11 // indirect
 	github.com/kevinburke/ssh_config v0.0.0-20201106050909-4977a11b4351 // indirect
@@ -84,4 +87,9 @@ require (
 	gopkg.in/tomb.v1 v1.0.0-20141024135613-dd632973f1e7 // indirect
 	gopkg.in/warnings.v0 v0.1.2 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
+	gorm.io/driver/mysql v1.2.1 // indirect
+	gorm.io/gorm v1.22.4 // indirect
+	gorm.io/plugin/dbresolver v1.1.0 // indirect
 )
+
+replace github.com/cqu20141693/go-service-common/v2 => ../go-service-common
