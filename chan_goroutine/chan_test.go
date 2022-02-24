@@ -1,8 +1,11 @@
 package chan_goroutine
 
 import (
+	"fmt"
 	"sync"
+	"sync/atomic"
 	"testing"
+	"time"
 )
 
 /*
@@ -39,6 +42,100 @@ func TestCSP(t *testing.T) {
 	useMutex()
 }
 
+/**
+测试并发限制
+*/
+func TestConcurrencyLimit(t *testing.T) {
+	var limit = make(chan int, 3)
+
+	work := func(index int32) {
+		time.Sleep(time.Second)
+		fmt.Println("index=", index)
+	}
+	works := []func(i int32){work, work, work, work, work, work}
+	index := int32(1)
+	for _, w := range works {
+		loadInt32 := atomic.LoadInt32(&index)
+		go func() {
+			limit <- 1
+			w(loadInt32)
+			<-limit
+		}()
+		atomic.AddInt32(&index, 1)
+	}
+	select {
+	case <-time.After(3 * time.Second):
+		return // 超时
+	}
+}
+
+/*
+Go 语言中不同 Goroutine 之间主要依靠管道进行通信和同步。要同时处理多个管道的发送或接收操作，我们需要使用 select 关键字（这个关键字和网络编程中的 select 函数的行为类似）。
+当 select 有多个分支时，会随机选择一个可用的管道分支，如果没有可用的管道分支则选择 default 分支，否则会一直保存阻塞状态。
+*/
+func TestSelect(t *testing.T) {
+	cancel := make(chan bool)
+	defer close(cancel)
+	for i := 0; i < 10; i++ {
+		if i&8 == 1 {
+			cancel <- true
+		}
+		// 通过chan 通知多个goroutine取消任务
+		//其实我们可以通过 close 关闭一个管道来实现广播的效果，所有从关闭管道接收的操作均会收到一个零值和一个可选的失败标志
+		go worker(cancel)
+	}
+	select {
+	case <-time.After(1 * time.Second):
+		return
+	}
+}
+
+/*
+测试goroutine 广播优雅退出
+*/
+func TestGoroutineBroadcast(t *testing.T) {
+	cancel := make(chan bool)
+	var wg sync.WaitGroup
+	for i := 0; i < 10; i++ {
+		wg.Add(1)
+		go workerWithShutdown(&wg, cancel)
+	}
+	time.Sleep(time.Second)
+	close(cancel)
+	wg.Wait()
+	fmt.Println("main shutdown")
+}
+func workerWithShutdown(wg *sync.WaitGroup, cancel chan bool) {
+	defer wg.Done()
+	for {
+		var exit bool
+		select {
+		case c := <-cancel:
+			fmt.Println("exit", c)
+			exit = true
+		default:
+			fmt.Println("default")
+			// 正常工作
+		}
+		if exit {
+			break
+		}
+	}
+	fmt.Println("goroutine shutdown")
+}
+
+func worker(cancel chan bool) {
+	for {
+		select {
+		case c := <-cancel:
+			fmt.Println("exit", c)
+			return
+		default:
+			fmt.Println("default")
+			// 正常工作
+		}
+	}
+}
 func useMutex() {
 	var mu sync.Mutex
 
@@ -60,4 +157,8 @@ func useChan() {
 	}()
 	<-done
 	println(msg)
+}
+
+func TestDeadLock(t *testing.T) {
+	select {}
 }
