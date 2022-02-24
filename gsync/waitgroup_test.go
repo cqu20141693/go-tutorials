@@ -6,6 +6,11 @@ import (
 	"testing"
 )
 
+/*
+func (wg *WaitGroup) Add(delta int)
+func (wg *WaitGroup) Done()
+func (wg *WaitGroup) Wait()
+*/
 func TestWaitGroup(t *testing.T) {
 	var wg sync.WaitGroup
 
@@ -14,8 +19,9 @@ func TestWaitGroup(t *testing.T) {
 		wg.Add(1)
 
 		go func() {
+			defer wg.Done()
 			fmt.Println("你好, 世界")
-			wg.Done()
+
 		}()
 	}
 

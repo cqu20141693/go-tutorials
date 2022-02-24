@@ -16,6 +16,19 @@ type person struct {
 
 	age uint
 }
+type Student struct {
+	person
+}
+
+/*
+对象继承
+*/
+func TestExtends(t *testing.T) {
+	stu := Student{person{"Panda", 20}}
+	age := stu.age
+	name := stu.name
+	fmt.Println(stu, age, name)
+}
 
 func TestStruct(t *testing.T) {
 	// person 不可见    new(person)

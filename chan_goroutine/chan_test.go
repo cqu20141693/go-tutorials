@@ -2,6 +2,7 @@ package chan_goroutine
 
 import (
 	"fmt"
+	"runtime"
 	"sync"
 	"sync/atomic"
 	"testing"
@@ -87,6 +88,24 @@ func TestSelect(t *testing.T) {
 	select {
 	case <-time.After(1 * time.Second):
 		return
+	}
+}
+
+/*
+select中的两个case都满足
+那么会随机选择一个来执行
+*/
+func TestSelectRandom(t *testing.T) {
+	runtime.GOMAXPROCS(1)
+	int_chan := make(chan int, 1)
+	string_chan := make(chan string, 1)
+	int_chan <- 1
+	string_chan <- "hello"
+	select {
+	case value := <-int_chan:
+		fmt.Println(value)
+	case value := <-string_chan:
+		panic(value)
 	}
 }
 

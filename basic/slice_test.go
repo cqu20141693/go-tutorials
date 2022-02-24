@@ -34,6 +34,10 @@ import (
 */
 
 func TestArraySliceConvert(t *testing.T) {
+
+	// 测试切片删除元素
+	testDelete()
+
 	ints := [5]int{1, 2, 3, 4, 5}
 	slice := ints[1:2:3]
 	fmt.Println("array[low:high：max] ", slice, len(slice), cap(slice))
@@ -55,6 +59,19 @@ func TestArraySliceConvert(t *testing.T) {
 	t0 := (*[0]string)(ts)
 	//t1 := (*[1]string)(ts)
 	fmt.Println(t0)
+}
+
+func testDelete() {
+	s := make([]string, 0)
+	s = append(s, "abc0")
+	s = append(s, "abc1")
+	fmt.Println(s)
+
+	s = append(s[:0], s[0+1:]...)
+	fmt.Println(s)
+
+	s = append(s[:0], s[0+1:]...)
+	fmt.Println(s)
 }
 
 var digitRegexp = regexp.MustCompile("[0-9]+")
