@@ -11,6 +11,13 @@ var Total struct {
 	value int
 }
 
+func TestMutex(t *testing.T) {
+	if Total.TryLock() {
+		defer Total.Unlock()
+		fmt.Println("tryLock success")
+	}
+}
+
 func worker(wg *sync.WaitGroup) {
 	defer wg.Done()
 
