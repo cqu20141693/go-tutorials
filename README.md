@@ -1,4 +1,4 @@
-## go 
+## go
 
 ### 环境安装
 
@@ -12,7 +12,20 @@ CGO_ENABLED=0 GOOS=windows GOARCH=amd64 go build -a -o libmqtt github.com/goiiot
 
 go build
 ```
+
 ### 启动服务
+
 ``` 
 nohup $COMMAND >nohup.out 2>&1 &
+```
+
+### 关键字
+
+``` 
+package import 
+var constant int/uint bool string true false
+func return struct type interface
+switch case fallthrough default if else
+for continue break
+
 ```
