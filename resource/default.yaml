@@ -1,0 +1,14 @@
+port: 27117
+mongo:
+  address: 192.168.96.163:27017
+  # authSource: le5leTopology
+  database: iotTopology
+  user: iiot
+  #  password: Gaea1234567
+  password: Gaea1234567
+  maxConnections: 10
+  Timeout: 30
+  logLevel: 1
+  mechanism: SCRAM-SHA-1
+  authSource: admin
+  debug: false
