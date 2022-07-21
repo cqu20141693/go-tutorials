@@ -11,13 +11,24 @@ func main() {
 
 	Values()
 
+	Types()
+
 	Variables()
 
 	Constants()
 
 	For()
 
+	Range()
+
 	IfElse()
 
 	SwitchCase()
+
+	Function()
+
+	ArraySlice()
+
+	Collection()
+	Strings()
 }

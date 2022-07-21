@@ -24,8 +24,9 @@ nohup $COMMAND >nohup.out 2>&1 &
 ``` 
 package import 
 var constant int/uint bool string true false
-func return struct type interface
+struct func return struct type interface defer
 switch case fallthrough default if else
 for continue break
+[] map chan make new 
 
 ```

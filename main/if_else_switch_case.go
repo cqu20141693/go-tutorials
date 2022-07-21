@@ -9,7 +9,7 @@ import (
 
 switch case 关键子用于枚举条件处理
 switch 支持无变量，一个变量
-case 支持常量值条件，表达式条件， case 代码段执行完
+case 支持常量值条件，表达式条件，隐式 break
 fallthrough 继续下一个case
 default 表示无匹配case时执行逻辑
 */
