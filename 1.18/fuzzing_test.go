@@ -3,8 +3,10 @@ package __18
 import (
 	"bytes"
 	"encoding/hex"
+	"fmt"
 	cmpp "github.com/bigwhite/gocmpp"
 	"testing"
+	"unicode/utf8"
 )
 
 // 根据长宽获取面积
@@ -21,6 +23,89 @@ func TestGetArea(t *testing.T) {
 	if area != 2000 {
 		t.Error("测试失败")
 	}
+}
+
+func Reverse(s string) string {
+	b := []byte(s)
+	for i, j := 0, len(b)-1; i < len(b)/2; i, j = i+1, j-1 {
+		b[i], b[j] = b[j], b[i]
+	}
+	return string(b)
+}
+
+func TestUnitTest(t *testing.T) {
+
+	// 定义输入
+	type args struct {
+		s string
+	}
+	tests := []struct {
+		name string
+		args args
+		want string
+	}{
+		{"test1", args{"Hello, world"}, "dlrow ,olleH"},
+		{"test2", args{" "}, " "},
+		{"test3", args{"!12345"}, "54321!"},
+	}
+
+	// 使用输出
+	for _, test := range tests {
+		t.Run(test.name, func(t *testing.T) {
+			if ret := Reverse(test.args.s); ret != test.want {
+				t.Errorf("Reverse() = %v, want %v", ret, test.want)
+			}
+		})
+	}
+}
+
+func FuzzReverse(f *testing.F) {
+	// 创建输入数据
+	testcases := []string{"Hello, world", " ", "!12345"}
+	// 初始化Fuzz test context
+	for _, tc := range testcases {
+		f.Add(tc)
+	}
+	// Fuzz test
+	f.Fuzz(func(t *testing.T, orig string) {
+		rev := Reverse(orig)
+		doubleRev := Reverse(rev)
+		if orig != doubleRev {
+			t.Errorf("Before: %q, after: %q", orig, doubleRev)
+		}
+		if utf8.ValidString(orig) && !utf8.ValidString(rev) {
+			t.Errorf("Reverse produced invalid UTF-8 string %q", rev)
+		}
+	})
+}
+func ReverseRunes(s string) string {
+	fmt.Printf("input: %q\n", s)
+	r := []rune(s)
+	fmt.Printf("runes: %q\n", r)
+	for i, j := 0, len(r)-1; i < len(r)/2; i, j = i+1, j-1 {
+		r[i], r[j] = r[j], r[i]
+	}
+	return string(r)
+}
+
+func FuzzReverseRunes(f *testing.F) {
+	// 创建输入数据
+	testcases := []string{"Hello, world", "\x91", "!12345"}
+	// 初始化Fuzz test context
+	for _, tc := range testcases {
+		f.Add(tc)
+	}
+	// Fuzz test
+	f.Fuzz(func(t *testing.T, orig string) {
+		rev := ReverseRunes(orig)
+		doubleRev := ReverseRunes(rev)
+		if orig != doubleRev {
+			t.Errorf("Before: %q, after: %q", orig, doubleRev)
+		}
+		if utf8.ValidString(orig) && !utf8.ValidString(rev) {
+			t.Errorf("Reverse produced invalid UTF-8 string %q", rev)
+		}
+	})
 }
 
 func BenchmarkGetArea(b *testing.B) {

@@ -31,4 +31,6 @@ func main() {
 
 	Collection()
 	Strings()
+
+	StructAndInterface()
 }

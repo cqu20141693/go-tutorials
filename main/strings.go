@@ -7,12 +7,12 @@ func Strings() {
 	fmt.Println(".........strings.........")
 	String()
 
-	Rune()
+	RuneAndByte()
 
 	fmt.Println(".........strings.........end")
 }
 
-func Rune() {
+func RuneAndByte() {
 
 }
 
