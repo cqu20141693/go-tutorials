@@ -16,3 +16,6 @@ go build
 ``` 
 nohup $COMMAND >nohup.out 2>&1 &
 ```
+### workspace
+1. [workspace mode](https://juejin.cn/post/7082674325773352968)
+2. [workspace tutorial](https://go.dev/doc/tutorial/workspaces)
