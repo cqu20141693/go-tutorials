@@ -17,5 +17,12 @@ go build
 nohup $COMMAND >nohup.out 2>&1 &
 ```
 ### workspace
-1. [workspace mode](https://juejin.cn/post/7082674325773352968)
+1. 创建工作区
+go work init [localModules]
+2. 添加go module
+go work use ./utils
+go work use ../service-common
+#### 参考
+1. [workspace mode](https://juejin.cn/post/7084584958307598344)
 2. [workspace tutorial](https://go.dev/doc/tutorial/workspaces)
+

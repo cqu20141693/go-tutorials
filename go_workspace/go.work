@@ -1,4 +1,6 @@
 go 1.18
 
-//use ../../go-service-common
-use ./service
+use (
+	../../go-service-common
+	./service
+)
